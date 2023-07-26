@@ -2,8 +2,8 @@ package logger
 
 import (
 	"fmt"
+	"log"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 
@@ -37,9 +37,7 @@ func Console() *zapcore.Core {
 }
 
 func LocalFile(filename string) *zapcore.Core {
-	dir := config.Cfg.Get().Logdir
-
-	logdir := path.Join(dir, info.MicroService)
+	logdir := config.Cfg.Get().Logdir
 
 	// 持久化系统日志
 	if !utils.IsExist(logdir) {
@@ -48,10 +46,14 @@ func LocalFile(filename string) *zapcore.Core {
 			panic(err)
 		}
 	}
-	file_info, _ := os.OpenFile(
-		filepath.Join(logdir, filename),
+	logpath := filepath.Join(logdir, info.MicroService+"_"+filename)
+	file_info, err := os.OpenFile(
+		logpath,
 		os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644,
 	)
+	if err != nil {
+		log.Panic(err)
+	}
 
 	fileWriteSyncer := zapcore.AddSync(file_info)
 
