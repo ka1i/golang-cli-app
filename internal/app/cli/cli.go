@@ -2,9 +2,10 @@ package cli
 
 import (
 	"errors"
-	"fmt"
 	"os"
 	"strings"
+
+	"github.com/ka1i/cli/pkg/logger"
 )
 
 func Usage() string {
@@ -28,7 +29,7 @@ func Flags() (bool, error) {
 func Execute() error {
 	var err error
 
-	fmt.Println("golang cli app template")
+	logger.Info("golang cli app template")
 
 	return err
 }

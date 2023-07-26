@@ -7,8 +7,10 @@ import (
 	"errors"
 	"os"
 
+	"github.com/ka1i/cli/internal/pkg/config"
 	"github.com/ka1i/cli/internal/pkg/usage"
 	"github.com/ka1i/cli/pkg/info"
+	"github.com/ka1i/cli/pkg/logger"
 )
 
 type app struct {
@@ -51,6 +53,16 @@ func (app *app) Run() (int, error) {
 	if isBreak {
 		return app.success, err
 	}
+
+	// config parser
+	config.Configure.Init()
+	err = config.Configure.Error
+	if err != nil {
+		panic(err)
+	}
+
+	// init logger
+	logger.Init()
 
 	if isCapture {
 		isBreak, err = app.Flags()

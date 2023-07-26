@@ -1,0 +1,4 @@
+# System
+logdir: ./app/logs
+datadir: ./app/data
+timezone: Asia/Shanghai
