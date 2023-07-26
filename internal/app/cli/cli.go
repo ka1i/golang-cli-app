@@ -9,6 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/ka1i/cli/internal/app/cli/router"
+	"github.com/ka1i/cli/internal/pkg/datasource"
 	"github.com/ka1i/cli/internal/pkg/handlers"
 	"github.com/ka1i/cli/internal/pkg/system/prepare"
 	"github.com/ka1i/cli/pkg/logger"
@@ -36,6 +37,9 @@ func Flags() (bool, error) {
 func Execute() error {
 	// service prepare
 	prepare.Environment()
+
+	// init data source
+	datasource.Datasource.Init()
 
 	// system initialize
 	prepare.Configure()

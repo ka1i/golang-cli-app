@@ -11,6 +11,7 @@ import (
 	"github.com/ka1i/cli/internal/pkg/usage"
 	"github.com/ka1i/cli/pkg/info"
 	"github.com/ka1i/cli/pkg/logger"
+	"github.com/ka1i/cli/pkg/timezone"
 )
 
 type app struct {
@@ -60,6 +61,9 @@ func (app *app) Run() (int, error) {
 	if err != nil {
 		panic(err)
 	}
+
+	// configure time
+	timezone.Init()
 
 	// init logger
 	logger.Init()
