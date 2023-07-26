@@ -2,10 +2,17 @@ package cli
 
 import (
 	"errors"
+	"net/http"
 	"os"
 	"strings"
+	"time"
 
+	"github.com/gin-gonic/gin"
+	"github.com/ka1i/cli/internal/app/cli/router"
+	"github.com/ka1i/cli/internal/pkg/handlers"
+	"github.com/ka1i/cli/internal/pkg/system/prepare"
 	"github.com/ka1i/cli/pkg/logger"
+	"github.com/ka1i/cli/pkg/utils"
 )
 
 func Usage() string {
@@ -27,9 +34,29 @@ func Flags() (bool, error) {
 }
 
 func Execute() error {
-	var err error
+	// service prepare
+	prepare.Environment()
 
-	logger.Info("golang cli app template")
+	// system initialize
+	prepare.Configure()
 
+	// configure web server
+	engine := gin.New()
+	handlers.SetHandlers(engine)
+	router.SetRouter(engine, "/cli-server")
+
+	var addr string = utils.Resolver()
+
+	server := &http.Server{
+		Addr:           addr,
+		Handler:        engine,
+		ReadTimeout:    time.Second * 10,
+		WriteTimeout:   time.Second * 10,
+		MaxHeaderBytes: 1 << 20,
+	}
+
+	// start web server
+	logger.Printf("Server Listening %s Success...\n", addr)
+	err := server.ListenAndServe()
 	return err
 }
