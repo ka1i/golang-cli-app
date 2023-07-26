@@ -6,3 +6,22 @@ port: 2333
 logdir: ./app/logs
 datadir: ./app/data
 timezone: Asia/Shanghai
+
+## Mysql
+mysql:
+  addr: localhost
+  port: 3306
+  user: root
+  passwd: 12345678
+  database: app
+  options: charset=utf8mb4&parseTime=true&loc=Local&timeout=15s
+  MaxOpenConns: 0
+  MaxIdleConns: 100
+  ConnMaxIdleTime: 3m
+  ConnMaxLifetime: 6m
+
+## Redis
+redis:
+  addrs: [localhost:6379]
+  passwd: 12345678
+  mastername:

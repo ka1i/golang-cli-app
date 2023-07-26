@@ -5,4 +5,5 @@ func Init() {
 
 	// middleware log setting
 	GinLog()
+	GormLog()
 }
