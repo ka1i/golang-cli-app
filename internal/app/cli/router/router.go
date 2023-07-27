@@ -21,4 +21,5 @@ func SetRouter(engine *gin.Engine, context string) {
 
 	// api ver v1
 	v1.Entry(subApiRoutes)
+	v1.Asset(subApiRoutes)
 }
