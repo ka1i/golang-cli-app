@@ -9,6 +9,8 @@ type Options struct {
 
 	Mysql `yaml:"mysql"` // 数据库配置
 	Redis `yaml:"redis"` // 数据库配置
+
+	Task `yaml:"task"` // 后台任务配置
 }
 
 // app env config
@@ -42,4 +44,8 @@ type Redis struct {
 	Addrs      []string `yaml:"addrs"`      // 地址
 	Passwd     string   `yaml:"passwd"`     // 密码
 	MasterName string   `yaml:"mastername"` // 选项
+}
+
+type Task struct {
+	Interval time.Duration `yaml:"interval"` // 间隔
 }
