@@ -6,7 +6,5 @@
 /lib
 /vendor
 
-go.sum
-
 # debug file
 /app*
