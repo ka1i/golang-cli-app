@@ -12,6 +12,7 @@ import (
 	"github.com/ka1i/cli/internal/pkg/datasource"
 	"github.com/ka1i/cli/internal/pkg/handlers"
 	"github.com/ka1i/cli/internal/pkg/system/prepare"
+	"github.com/ka1i/cli/internal/pkg/task"
 	"github.com/ka1i/cli/pkg/logger"
 	"github.com/ka1i/cli/pkg/utils"
 )
@@ -43,6 +44,9 @@ func Execute() error {
 
 	// system initialize
 	prepare.Configure()
+
+	// service background task
+	go task.New.Start()
 
 	// configure web server
 	engine := gin.New()
