@@ -23,7 +23,7 @@ func Resolver() string {
 		addr = append(addr, "80")
 	}
 
-	port := os.Getenv("AOK_APP_PORT")
+	port := os.Getenv("GCA_APP_PORT")
 	if len(port) != 0 {
 		addr[1] = port
 	}

@@ -22,7 +22,7 @@ func app() {
 
 func appMode() {
 	var mode string
-	mode = os.Getenv("AOK_APP_MODE")
+	mode = os.Getenv("GCA_APP_MODE")
 	if len(mode) == 0 {
 		mode = gin.TestMode
 	}

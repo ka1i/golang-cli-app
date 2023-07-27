@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  cli:
+    image: gca/cli:latest
+    env_file:
+      - gca.env
+    volumes:
+      - /etc/gca/app.yaml:/opt/app.yaml:ro
+    ports:
+      - "10086:10086"
