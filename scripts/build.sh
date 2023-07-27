@@ -1,4 +1,4 @@
-#!/bin/sh --posix
+#!/bin/bash --posix
 
 Prefix=$1
 
