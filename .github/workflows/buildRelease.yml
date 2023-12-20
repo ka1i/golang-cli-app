@@ -1,0 +1,37 @@
+name: Go Release CI
+
+on:
+    push:
+      # run only against tags
+      tags:
+        - '*'
+
+jobs:
+  release:
+    name: Build Go App Release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - run: git fetch --force --tags
+    - uses: actions/setup-go@v4
+      with:
+        go-version-file: 'go.mod'
+    - run: go version
+    - uses: goreleaser/goreleaser-action@v5
+      with:
+        # either 'goreleaser' (default) or 'goreleaser-pro':
+        version: latest
+        args: release --clean
+        workdir: bin
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Your GoReleaser Pro key, if you are using the 'goreleaser-pro'
+        # distribution:
+        # GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
+    - name: Upload assets
+      uses: actions/upload-artifact@v3
+      with:
+        name: 
+        path: bin/dist/*
